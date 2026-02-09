@@ -1,0 +1,62 @@
+<h1>Trang MORE</h1>
+<a href="index.html">Quay lại trang chính</a>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Game Xúc Xắc</title>
+<style>
+body{
+  font-family: Arial;
+  text-align:center;
+  background:#111;
+  color:white;
+  padding-top:80px;
+}
+button{
+  padding:12px 25px;
+  font-size:18px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+.dice{
+  font-size:60px;
+  margin:20px;
+}
+.result{
+  font-size:28px;
+  margin-top:20px;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Lắc Xúc Xắc</h1>
+
+<div class="dice" id="dice">🎲 🎲</div>
+
+<button onclick="rollDice()">Lắc</button>
+
+<div class="result" id="result"></div>
+
+<script>
+function rollDice(){
+  let d1 = Math.floor(Math.random()*6)+1;
+  let d2 = Math.floor(Math.random()*6)+1;
+  let total = d1 + d2;
+
+  document.getElementById("dice").innerText = d1 + " + " + d2;
+
+  if(total >= 7){
+    document.getElementById("result").innerText = "TÀI (" + total + ")";
+  } else {
+    document.getElementById("result").innerText = "XỈU (" + total + ")";
+  }
+}
+</script>
+
+</body>
+</html>
