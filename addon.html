@@ -1,13 +1,33 @@
-<h1>Trang MORE</h1>
-<a href="index.html">Quay lại trang chính</a>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Bầu Cua Mini</title>
+<title>Bầu Cua</title>
+
 <style>
+  .back-btn{
+  position:fixed;
+  top:20px;
+  left:20px;
+  width:45px;
+  height:45px;
+  background:#000;
+  color:white;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  font-size:22px;
+  font-weight:bold;
+  box-shadow:0 0 10px rgba(0,0,0,0.5);
+  z-index:999;
+}
+.back-btn:hover{
+  background:#333;
+}
 body{
-  font-family: Arial, sans-serif;
+  font-family:Arial;
   background:#111;
   color:white;
   text-align:center;
@@ -25,10 +45,6 @@ body{
   border-radius:12px;
   padding:15px;
   cursor:pointer;
-  transition:0.2s;
-}
-.item:hover{
-  background:#333;
 }
 .selected{
   outline:3px solid gold;
@@ -40,53 +56,47 @@ button{
   font-size:16px;
   cursor:pointer;
 }
-.result{
-  margin-top:20px;
-  font-size:20px;
-}
 </style>
 </head>
 
 <body>
+<a href="index.html" class="back-btn">←</a>
 
-<h1>🎲 Bầu Cua Mini</h1>
-<p>Chọn 1 con rồi bấm Lắc</p>
+<h1>🎲 Bầu Cua</h1>
 
 <div class="board">
-  <div class="item" onclick="chon('bau')">🥒 Bầu</div>
-  <div class="item" onclick="chon('cua')">🦀 Cua</div>
-  <div class="item" onclick="chon('tom')">🦐 Tôm</div>
-  <div class="item" onclick="chon('ca')">🐟 Cá</div>
-  <div class="item" onclick="chon('ga')">🐓 Gà</div>
-  <div class="item" onclick="chon('nai')">🦌 Nai</div>
+  <div class="item" onclick="chon('bau', this)">🥒 Bầu</div>
+  <div class="item" onclick="chon('cua', this)">🦀 Cua</div>
+  <div class="item" onclick="chon('tom', this)">🦐 Tôm</div>
+  <div class="item" onclick="chon('ca', this)">🐟 Cá</div>
+  <div class="item" onclick="chon('ga', this)">🐓 Gà</div>
+  <div class="item" onclick="chon('nai', this)">🦌 Nai</div>
 </div>
 
 <button onclick="lac()">Lắc 🎲</button>
 
-<div class="result" id="ketqua"></div>
+<p id="ketqua"></p>
 
 <script>
 let luaChon = [];
 const ds = ["bau","cua","tom","ca","ga","nai"];
 
-function chon(con){
+function chon(con, el){
   const index = luaChon.indexOf(con);
 
-  // Nếu đã chọn rồi → bỏ chọn
   if(index !== -1){
     luaChon.splice(index,1);
-    event.target.classList.remove("selected");
+    el.classList.remove("selected");
     return;
   }
 
-  // Nếu đã đủ 2 con → không cho chọn thêm
   if(luaChon.length >= 2){
     alert("Chỉ chọn tối đa 2 con!");
     return;
   }
 
   luaChon.push(con);
-  event.target.classList.add("selected");
+  el.classList.add("selected");
 }
 
 function lac(){
@@ -101,14 +111,14 @@ function lac(){
 
   let ketqua = `Kết quả: ${kq1} - ${kq2} - ${kq3}`;
 
-  let thang = luaChon.some(con => 
+  let thang = luaChon.some(con =>
     con===kq1 || con===kq2 || con===kq3
   );
 
   if(thang){
-    ketqua += " → 🎉 Bạn thắng!";
+    ketqua += " → 🎉 Thắng!";
   }else{
-    ketqua += " → 😢 Bạn thua!";
+    ketqua += " → 😢 Thua!";
   }
 
   document.getElementById("ketqua").innerText = ketqua;
